@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prueba AJAX 3</title>
+</head>
+<body>
+    <h1>Prueba AJAX 3</h1>
+    <div>
+        <button onclick = getHeader()>Solicitar header del archivo</button>
+    </div>
+    <div id="box"></div>
+    <script>
+        function getHeader(){
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                document.getElementById("box").innerHTML = this.getAllResponseHeaders();
+            }
+            xhttp.open("GET", "text.txt", true);
+            xhttp.send();
+        }
+    </script>
+</body>
+</html>
