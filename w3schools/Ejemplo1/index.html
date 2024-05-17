@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prueba AJAX</title>
+</head>
+<body>
+    <h1>Prueba AJAX</h1>
+    <button onclick=test()>Cargar Datos</button>
+    <div id="box"></div>
+    <script>
+        function test(){
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                document.getElementById("box").innerHTML = this.responseText;
+            }
+            xhttp.open("GET", "example1.txt", true);
+            xhttp.send();
+        }
+    </script>
+</body>
+</html>
