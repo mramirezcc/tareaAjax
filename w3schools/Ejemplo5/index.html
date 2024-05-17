@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prueba AJAX 5</title>
+    <meta charset = "utf-8">
+</head>
+<body>
+    <h1>Prueba AJAX 5</h1>
+    <div>
+        <button onclick = loadData()>Cargar datos</button>
+     </div>
+    <p><b>Status: </b><div id="statusBox"></div></p>
+    <p><b>Status Text: </b><div id="statusTextBox"></div></p>
+    <p><b>Response Text: </b><div id="responseBox"></div></p>
+    <script>
+        function loadData(){
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                document.getElementById("statusBox").innerHTML = this.status;
+                document.getElementById("statusTextBox").innerHTML = this.statusText;
+                document.getElementById("responseBox").innerHTML = this.responseText;
+            }
+            xhttp.open("GET", "example.xml", true);
+            xhttp.send();
+        }
+    </script>
+</body>
+</html>
