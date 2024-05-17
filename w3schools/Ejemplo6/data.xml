@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <data>
+        <field>Nombre</field>
+        <value>Max</value>
+    </data>
+    <data>
+        <field>Apellido</field>
+        <value>Ramirez</value>
+    </data>
+    <data>
+        <field>Edad</field>
+        <value>17</value>
+    </data>
+    <data>
+        <field>Año</field>
+        <value>Segundo año</value>
+    </data>
+    <data>
+        <field>Curso</field>
+        <value>Programacion Web 2</value>
+    </data>
+    <data>
+        <field>Tema</field>
+        <value>AJAX</value>
+    </data>
+</dataset>
