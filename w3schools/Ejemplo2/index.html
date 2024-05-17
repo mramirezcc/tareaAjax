@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prueba AJAX 2</title>
+</head>
+<body>
+    <h1>Prueba AJAX 2</h1>
+    <div>
+        <button onclick = test("text1.txt")>Primer texto</button>
+        <button onclick = test("text2.txt")>Segundo texto</button>
+    </div>
+    <div id="box"></div>
+    <script>
+        function test(url){
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                auxFunction(xhttp);
+            }
+            xhttp.open("GET", url, true);
+            xhttp.send();
+        }
+        
+        function auxFunction(xhttp){
+            document.getElementById("box").innerHTML = xhttp.responseText.replace(/\n/g, '<br>');
+        }
+    </script>
+</body>
+</html>
