@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prueba AJAX 7</title>
+    <meta charset = "utf-8">
+</head>
+<body>
+    <h1>Prueba AJAX 7</h1>
+    <h2>Escriba un nombre debajo:</h2>
+    <p>Posibles predicciones: <span id="predictions"></span></p>
+    <p>Nombre: <input type="text" id="nameBox" onkeyup=predict(this.value)></p>
+    <br>
+    <script>
+        function predict(str){
+            if(str.length == 0){
+                document.getElementById("predictions").innerHTML = "Ingrese un nombre";
+                return;
+            }
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                console.log(this.response);
+                document.getElementById("predictions").innerHTML = this.response;
+            }
+            xhttp.open("GET", "suggestions.php?q=" + str, true);
+            xhttp.send();
+        }
+    </script>
+</body>
+</html>
