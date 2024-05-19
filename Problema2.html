@@ -15,20 +15,31 @@
                 const xhttp = new XMLHttpRequest();
                 xhttp.onload = function(){
                     const data = JSON.parse(this.responseText);
-                    var tablaConfirmados = tablaConfirmados(data);
-                    document.getElementById("regiones").innerHTML = tablaConfirmados;
+                    var tabla = tablaConfirmados(data);
+                    document.getElementById("regiones").innerHTML = tabla;
                 }
                 xhttp.open("GET", "data.json", true);
                 xhttp.send();
             }
 
             function tablaConfirmados(data){
-                var tabla = "";
+                var tabla = "<tr><th>Región</th><th>Total de confirmados</th>";
                 data.forEach(
                     function(element){
-                        
+                        tabla += "<tr><td>"
+                        tabla += element.region + "</td><td>"
+                        tabla += totalConfirmados(element.confirmed) + "</td></tr>";
                     }
                 );
+                return tabla;
+            }
+
+            function totalConfirmados(element){
+                var count = 0;
+                for(subElement in element){
+                    count++;
+                }
+                return count;
             }
         </script>
     </body>
