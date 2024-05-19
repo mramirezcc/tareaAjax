@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+        <meta charset="utf-8">
+        <title>AJAX 3</title>
+    </head>
+    <body>
+        <h1>Lab04 - Problema 3</h1>
+        <p>Encuentre las 10 regiones cuya suma total sea la mayor</p>
+        <button onclick=listar10Regiones()>Ejecutar AJAX</button>
+        <br>
+        <table id="regiones"></table>
+        <script>
+            function listar10Regiones(){
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function(){
+                    const data = JSON.parse(this.responseText);
+                    var tabla = tablaConfirmados(data);
+                    document.getElementById("regiones").innerHTML = tabla;
+                }
+                xhttp.open("GET", "data.json", true);
+                xhttp.send();
+            }
+
+            function tablaConfirmados(data){
+                var regionArray = toArray(data);
+                var tabla = "<tr><th>Región</th><th>Total de confirmados</th>";
+                /*data.forEach(
+                    function(element){
+                        tabla += "<tr><td>"
+                        tabla += element.region + "</td><td>"
+                        tabla += totalConfirmados(element) + "</td></tr>";
+                    }
+                );*/
+                return tabla;
+            }
+
+            function toArray(data){
+                var regionArray = [];
+                data.forEach(
+                    function(element){
+                        regionArray.push({
+                            region: element.region,
+                            total: totalConfirmados(element),
+                        });
+                    }
+                );
+            }
+
+            function totalConfirmados(element){
+                var count = 0;
+                element.confirmed.forEach(
+                    function(subElement){
+                        count += parseInt(subElement.value);
+                    }
+                );
+                return count;
+            }
+        </script>
+    </body>
+</html>
