@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+        <meta charset="utf-8">
+        <title>AJAX 2</title>
+    </head>
+    <body>
+        <h1>Lab04 - Problema 2</h1>
+        <p>Muestre el número total de confirmados por región</p>
+        <button onclick=listarRegiones()>Ejecutar AJAX</button>
+        <br>
+        <table id="regiones"></table>
+        <script>
+            function listarRegiones(){
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function(){
+                    const data = JSON.parse(this.responseText);
+                    var tablaConfirmados = tablaConfirmados(data);
+                    document.getElementById("regiones").innerHTML = tablaConfirmados;
+                }
+                xhttp.open("GET", "data.json", true);
+                xhttp.send();
+            }
+
+            function tablaConfirmados(data){
+                var tabla = "";
+                data.forEach(
+                    function(element){
+                        
+                    }
+                );
+            }
+        </script>
+    </body>
+</html>
