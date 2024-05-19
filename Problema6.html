@@ -36,14 +36,16 @@
                 //Aquí, se ingresan los datos por fecha
                 data.forEach(
                     function(element){
-                        arrData[0].push(element.region);
+                        if(element.region != "Lima" && element.region != "Callao"){
+                            arrData[0].push(element.region);
 
-                        //Primero verificamos si la fecha ya existe, y si no, la agregamos
-                        for(var i = 1; i <= element.confirmed.length; i++){
-                            if(!(i in arrData)){
-                                arrData.push([element.confirmed[i-1].date]);
+                            //Primero verificamos si la fecha ya existe, y si no, la agregamos
+                            for(var i = 1; i <= element.confirmed.length; i++){
+                                if(!(i in arrData)){
+                                    arrData.push([element.confirmed[i-1].date]);
+                                }
+                                arrData[i].push(parseInt(element.confirmed[i-1].value));
                             }
-                            arrData[i].push(parseInt(element.confirmed[i-1].value));
                         }
                     }
                 );
