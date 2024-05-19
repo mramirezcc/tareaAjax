@@ -8,17 +8,17 @@
         <h1>Lab04 - Problema 1</h1>
         <p>Liste todas las “regiones”</p>
         <button onclick=listarRegiones()>Ejecutar AJAX</button>
+        <br>
         <div id="regiones"></div>
         <script>
             function listarRegiones(){
                 const xhttp = new XMLHttpRequest();
                 xhttp.onload = function(){
                     const data = JSON.parse(this.responseText);
-                    console.log(data);
                     var list = "";
-                    for(element in data){
-                        list += data.region + "<br>";
-                    }
+                    data.forEach(function(element){
+                        list += element.region + "<br>"
+                    });
                     document.getElementById("regiones").innerHTML = list;
                 }
                 xhttp.open("GET", "data.json", true);
