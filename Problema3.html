@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+    </style>
     <head></head>
         <meta charset="utf-8">
         <title>AJAX 3</title>
@@ -29,12 +36,14 @@
                 });
                 regionArray = regionArray.slice(0, 10);
 
-                var tabla = "<tr><th>Región</th><th>Total de confirmados</th>";
+                var tabla = "<tr><th>*</th><th>Región</th><th>Total de confirmados</th>";
+                var count = 1;
                 regionArray.forEach(
                     function(arrElement){
-                        tabla += "<tr><td>"
+                        tabla += "<tr><td>" + count+ "</td><td>"
                         tabla += arrElement.region + "</td><td>"
                         tabla += arrElement.total + "</td></tr>";
+                        count++;
                     }
                 );
                 return tabla;
