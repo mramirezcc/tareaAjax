@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+        <meta charset="utf-8">
+        <title>AJAX 4</title>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    </head>
+    <body>
+        <h1>Lab04 - Problema 4</h1>
+        <p>Visualice un gráfico en el tiempo de los valores para la región de Arequipa</p>
+        <button onclick=compararLineas()>Ejecutar AJAX</button>
+        <div id="tablaArequipa"></div>
+
+        <script>
+            //Aqui se ubicarán las regiones a comparar... quizás luego se puedan
+            //ingresar por la página
+            var arr = ["Arequipa", "Piura"];
+            function compararLineas(){
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function(){
+                    const data = JSON.parse(this.responseText);
+                    drawChart(data, arr);
+                }
+                xhttp.open("GET", "data.json", true);
+                xhttp.send();
+            }
+        </script>
+        <script type="text/javascript">
+            //Script de Google Charts para mostrar el grafico
+            google.charts.load("current", {"packages":["corechart"]});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart(data, arr){
+                var chartData = new google.visualization.DataTable();
+                var arrData = [["Year"]];
+                arr.forEach(
+                    function(arrElement){
+                        //Encontramos los datos de la región que solicitamos
+                        const regionData = data.find(
+                            function(element){
+                                return element.region === arrElement;
+                            }
+                        );
+                        arrData[0].push(regionData.region);
+                        regionData.confirmed.forEach(
+                            function(element){
+                                arrData.push([]);
+                            }
+                        );
+                    }
+                );
+            }
+        </script>
+    </body>
+</html>
