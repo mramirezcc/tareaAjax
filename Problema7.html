@@ -8,7 +8,34 @@
     <body>
         <h1>Lab04 - Problema 7</h1>
         <p>Haga gráficos comparativos entre regiones elegidas por el usuario.</p>
-        <button onclick=compararLineas()>Ejecutar AJAX</button>
+        <form id="form1" onsubmit=compararLineas()>
+            <label><input type="checkbox" value="Amazonas">Amazonas</label><br>
+            <label><input type="checkbox" value="Ancash">Áncash</label><br>
+            <label><input type="checkbox" value="Apurimac">Apurímac</label><br>
+            <label><input type="checkbox" value="Arequipa">Arequipa</label><br>
+            <label><input type="checkbox" value="Ayacucho">Ayacucho</label><br>
+            <label><input type="checkbox" value="Cajamarca">Cajamarca</label><br>
+            <label><input type="checkbox" value="Callao">Callao</label><br>
+            <label><input type="checkbox" value="Cusco">Cusco</label><br>
+            <label><input type="checkbox" value="Huancavelica">Huancavelica</label><br>
+            <label><input type="checkbox" value="Huanuco">Huánuco</label><br>
+            <label><input type="checkbox" value="Ica">Ica</label><br>
+            <label><input type="checkbox" value="Junin">Junín</label><br>
+            <label><input type="checkbox" value="La Libertad">La Libertad</label><br>
+            <label><input type="checkbox" value="Lambayeque">Lambayeque</label><br>
+            <label><input type="checkbox" value="Lima">Lima</label><br>
+            <label><input type="checkbox" value="Loreto">Loreto</label><br>
+            <label><input type="checkbox" value="Madre de Dios">Madre de Dios</label><br>
+            <label><input type="checkbox" value="Moquegua">Moquegua</label><br>
+            <label><input type="checkbox" value="Pasco">Pasco</label><br>
+            <label><input type="checkbox" value="Piura">Piura</label><br>
+            <label><input type="checkbox" value="Puno">Puno</label><br>
+            <label><input type="checkbox" value="San Martin">San Martín</label><br>
+            <label><input type="checkbox" value="Tacna">Tacna</label><br>
+            <label><input type="checkbox" value="Tumbes">Tumbes</label><br>
+            <label><input type="checkbox" value="Ucayali">Ucayali</label><br>
+            <button type="submit">Ejecutar AJAX</button>
+        </form>
         <div id="comparationLines" style="width:1000px; height:500px"></div>
 
         <script>
@@ -16,6 +43,17 @@
             //ingresar por la página
             var arr = ["Arequipa", "Piura", "Cusco", "Lambayeque"];
             function compararLineas(){
+                event.preventDefault();
+                const checkboxes = document.querySelectorAll('#form1 input[type="checkbox"]');
+                const arr = [];
+                checkboxes.forEach(
+                    function(element){
+                        if(element.checked){
+                            arr.push(element.value);
+                            console.log(arr);
+                        }
+                    }
+                );
                 const xhttp = new XMLHttpRequest();
                 xhttp.onload = function(){
                     const data = JSON.parse(this.responseText);
