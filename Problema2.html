@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html>
+    <style>
+        table, th, td {
+            border : 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+    </style>
     <head></head>
         <meta charset="utf-8">
         <title>AJAX 2</title>
@@ -28,7 +35,7 @@
                     function(element){
                         tabla += "<tr><td>"
                         tabla += element.region + "</td><td>"
-                        tabla += totalConfirmados(element.confirmed) + "</td></tr>";
+                        tabla += totalConfirmados(element) + "</td></tr>";
                     }
                 );
                 return tabla;
@@ -36,9 +43,11 @@
 
             function totalConfirmados(element){
                 var count = 0;
-                for(subElement in element){
-                    count++;
-                }
+                element.confirmed.forEach(
+                    function(subElement){
+                        count += parseInt(subElement.value);
+                    }
+                );
                 return count;
             }
         </script>
