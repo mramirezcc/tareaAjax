@@ -11,7 +11,7 @@
 
         </p>
         <button onclick=compararLineas()>Ejecutar AJAX</button>
-        <div id="comparationLines"></div>
+        <div id="comparationLines" style="width:1000px; height:500px"></div>
 
         <script>
             //Aqui se ubicarán las regiones a comparar... quizás luego se puedan
@@ -34,15 +34,10 @@
 
             function drawChart(data, arr){
                 var arrData = [["Fecha"]];
-                //Primero agregamos los títulos del gráfico
-                arr.forEach(
-                    function(arrElement){
-                        arrData[0].push([arrElement]);
-                    }
-                );
                 //Aquí, se ingresan los datos por fecha
                 arr.forEach(
                     function(arrElement){
+                        arrData[0].push(arrElement);
                         //Encontramos los datos de la región que solicitamos
                         const regionData = data.find(
                             function(element){
@@ -53,9 +48,9 @@
                         //Primero verificamos si la fecha ya existe, y si no, la agregamos
                         for(var i = 1; i <= regionData.confirmed.length; i++){
                             if(!(i in arrData)){
-                                arrData.push([regionData.confirmed[i - 1]]);
+                                arrData.push([regionData.confirmed[i-1].date]);
                             }
-                            arrData[i].push(parseInt(regionData.value));
+                            arrData[i].push(parseInt(regionData.confirmed[i-1].value));
                         }
                     }
                 );
