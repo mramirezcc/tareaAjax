@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+        <meta charset="utf-8">
+        <title>AJAX 7</title>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    </head>
+    <body>
+        <h1>Lab04 - Problema 7</h1>
+        <p>Haga gráficos comparativos entre regiones elegidas por el usuario.</p>
+        <button onclick=compararLineas()>Ejecutar AJAX</button>
+        <div id="comparationLines" style="width:1000px; height:500px"></div>
+
+        <script>
+            //Aqui se ubicarán las regiones a comparar... quizás luego se puedan
+            //ingresar por la página
+            var arr = ["Arequipa", "Piura", "Cusco", "Lambayeque"];
+            function compararLineas(){
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function(){
+                    const data = JSON.parse(this.responseText);
+                    drawChart(data, arr);
+                }
+                xhttp.open("GET", "data.json", true);
+                xhttp.send();
+            }
+        </script>
+        <script type="text/javascript">
+            //Script de Google Charts para mostrar el grafico
+            google.charts.load("current", {"packages":["corechart"]});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart(data, arr){
+                var arrData = [["Fecha"]];
+                //Aquí, se ingresan los datos por fecha
+                arr.forEach(
+                    function(arrElement){
+                        arrData[0].push(arrElement);
+                        //Encontramos los datos de la región que solicitamos
+                        const regionData = data.find(
+                            function(element){
+                                return element.region === arrElement;
+                            }
+                        );
+
+                        //Primero verificamos si la fecha ya existe, y si no, la agregamos
+                        for(var i = 1; i <= regionData.confirmed.length; i++){
+                            if(!(i in arrData)){
+                                arrData.push([regionData.confirmed[i-1].date]);
+                            }
+                            arrData[i].push(parseInt(regionData.confirmed[i-1].value));
+                        }
+                    }
+                );
+                var chartData = google.visualization.arrayToDataTable(arrData);
+
+                var options = {
+                    title: "Comparación de regiones",
+                    legend: {position: "bottom"}
+                };
+                var chart = new google.visualization.LineChart(document.getElementById("comparationLines"));
+                chart.draw(chartData, options);
+            }
+        </script>
+    </body>
+</html>
