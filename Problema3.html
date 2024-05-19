@@ -24,14 +24,19 @@
 
             function tablaConfirmados(data){
                 var regionArray = toArray(data);
+                regionArray.sort(function(a, b){
+                    return b.total - a.total;
+                });
+                regionArray = regionArray.slice(0, 10);
+
                 var tabla = "<tr><th>Región</th><th>Total de confirmados</th>";
-                /*data.forEach(
-                    function(element){
+                regionArray.forEach(
+                    function(arrElement){
                         tabla += "<tr><td>"
-                        tabla += element.region + "</td><td>"
-                        tabla += totalConfirmados(element) + "</td></tr>";
+                        tabla += arrElement.region + "</td><td>"
+                        tabla += arrElement.total + "</td></tr>";
                     }
-                );*/
+                );
                 return tabla;
             }
 
@@ -45,6 +50,7 @@
                         });
                     }
                 );
+                return regionArray;
             }
 
             function totalConfirmados(element){
