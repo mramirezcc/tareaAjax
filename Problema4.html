@@ -16,7 +16,12 @@
                 const xhttp = new XMLHttpRequest();
                 xhttp.onload = function(){
                     const data = JSON.parse(this.responseText);
-                    drawChart(data);
+                    const areqData = data.find(
+                        function(element){
+                            return element.region === "Arequipa";
+                        }
+                    )
+                    drawChart(areqData);
                 }
                 xhttp.open("GET", "data.json", true);
                 xhttp.send();
@@ -34,17 +39,33 @@
                 );
                 return regionArray;
             }
+        </script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            //Script de Google Charts para mostrar el grafico
+            google.charts.load("current", {"packages":["corechart"]});
+            google.charts.setOnLoadCallback(drawChart);
 
-            function totalConfirmados(element){
-                var count = 0;
-                element.confirmed.forEach(
-                    function(subElement){
-                        count += parseInt(subElement.value);
+            function drawChart(areqData){
+                var chartData = new google.visualization.DataTable();
+                const areqConfirmed = areqData.confirmed;
+
+                chartData.addColumn("string", "Fecha");
+                chartData.addColumn("number", "total");
+                areqConfirmed.forEach(
+                    function(element){
+                        chartData.addRows([
+                            [element.date, element.value];
+                        ]);
                     }
                 );
-                return count;
+                
+                var options = {"title": "Total de casos por fecha en Arequipa",
+                               "width": 1000,
+                               "height": 2000};
+                var chart = new google.visualization.BarChart(document.getElementById("tablaArequipa"));
+                chart.draw(data, options);
             }
         </script>
-        
     </body>
 </html>
