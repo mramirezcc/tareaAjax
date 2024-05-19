@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+        <meta charset="utf-8">
+        <title>AJAX 4</title>
+    </head>
+    <body>
+        <h1>Lab04 - Problema 4</h1>
+        <p>Visualice un gráfico en el tiempo de los valores para la región de Arequipa</p>
+        <button onclick=valoresArequipa()>Ejecutar AJAX</button>
+        <br>
+        <div id="tablaArequipa"></div>
+
+        <script>
+            function valoresArequipa(){
+                const xhttp = new XMLHttpRequest();
+                xhttp.onload = function(){
+                    const data = JSON.parse(this.responseText);
+                    drawChart(data);
+                }
+                xhttp.open("GET", "data.json", true);
+                xhttp.send();
+            }
+
+            function toArray(data){
+                var regionArray = [];
+                data.forEach(
+                    function(element){
+                        regionArray.push({
+                            region: element.date,
+                            total: totalConfirmados(element),
+                        });
+                    }
+                );
+                return regionArray;
+            }
+
+            function totalConfirmados(element){
+                var count = 0;
+                element.confirmed.forEach(
+                    function(subElement){
+                        count += parseInt(subElement.value);
+                    }
+                );
+                return count;
+            }
+        </script>
+        
+    </body>
+</html>
