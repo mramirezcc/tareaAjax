@@ -3,12 +3,12 @@
     <head></head>
         <meta charset="utf-8">
         <title>AJAX 4</title>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     </head>
     <body>
         <h1>Lab04 - Problema 4</h1>
         <p>Visualice un gráfico en el tiempo de los valores para la región de Arequipa</p>
         <button onclick=valoresArequipa()>Ejecutar AJAX</button>
-        <br>
         <div id="tablaArequipa"></div>
 
         <script>
@@ -26,21 +26,7 @@
                 xhttp.open("GET", "data.json", true);
                 xhttp.send();
             }
-
-            function toArray(data){
-                var regionArray = [];
-                data.forEach(
-                    function(element){
-                        regionArray.push({
-                            region: element.date,
-                            total: totalConfirmados(element),
-                        });
-                    }
-                );
-                return regionArray;
-            }
         </script>
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script type="text/javascript">
             //Script de Google Charts para mostrar el grafico
             google.charts.load("current", {"packages":["corechart"]});
@@ -48,14 +34,14 @@
 
             function drawChart(areqData){
                 var chartData = new google.visualization.DataTable();
-                const areqConfirmed = areqData.confirmed;
+                var areqConfirmed = areqData.confirmed;
 
                 chartData.addColumn("string", "Fecha");
                 chartData.addColumn("number", "total");
                 areqConfirmed.forEach(
                     function(element){
                         chartData.addRows([
-                            [element.date, element.value];
+                            [element.date, parseInt(element.value)]
                         ]);
                     }
                 );
@@ -64,7 +50,7 @@
                                "width": 1000,
                                "height": 2000};
                 var chart = new google.visualization.BarChart(document.getElementById("tablaArequipa"));
-                chart.draw(data, options);
+                chart.draw(chartData, options);
             }
         </script>
     </body>
